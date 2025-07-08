@@ -64,6 +64,39 @@ app.post("/api/persons", (request, response) => {
     id: gereratedId(),
   };
 
+  if (!body.name && body.number) {
+    return response.status(400).json({
+      error: "name is emty",
+    });
+  }
+
+  if (!body.number && body.name) {
+    return response.status(400).json({
+      error: "number is empty",
+    });
+  }
+
+  if (!body.name && !body.number) {
+    return response.status(400).json({
+      error: "content is empty",
+    });
+  }
+
+  let find = false;
+
+  persons.forEach((item) => {
+    if (item.name === body.name) {
+      find = true;
+      return response.status(400).json({
+        error: "name must be unique",
+      });
+    }
+  });
+
+  if (find === false) {
+    persons = persons.concat(person);
+  }
+
   console.log(person);
   response.json(person);
 });
