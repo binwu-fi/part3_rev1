@@ -3,9 +3,20 @@ const app = express();
 
 app.use(express.json());
 
-//next two lines are 3.7
-var morgan = require("morgan");
-app.use(morgan("tiny"));
+//Next lines are for 3.8
+const morgan = require("morgan");
+
+// Custom token to log the request body
+morgan.token("request-body", (req) => {
+  return JSON.stringify(req.body);
+});
+
+const customFormat =
+  ":method :url :status :res[content-length] - :response-time ms :request-body";
+
+// Use the custom format
+app.use(morgan(customFormat));
+// 3.8 ends
 
 let persons = [
   {
@@ -101,7 +112,7 @@ app.post("/api/persons", (request, response) => {
     persons = persons.concat(person);
   }
 
-  console.log(person);
+  console.log("The information of new person:", person);
   response.json(person);
 });
 
