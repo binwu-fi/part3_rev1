@@ -3,6 +3,10 @@ const app = express();
 
 app.use(express.json());
 
+//next two lines are 3.7
+var morgan = require("morgan");
+app.use(morgan("tiny"));
+
 let persons = [
   {
     id: "1",
