@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+const cors = require("cors"); //for 3.9
 
+app.use(cors()); //for 3.9
 app.use(express.json());
 
 //Next lines are for 3.8
@@ -59,7 +61,7 @@ app.get("/api/persons/:id", (request, response) => {
 app.delete("/api/persons/:id", (request, response) => {
   const id = request.params.id;
   persons = persons.filter((person) => person.id !== id);
-  response.status(202).end();
+  response.status(204).end(); //status code korjattu 204:ksi
 });
 
 function getRandomInt(Max) {
@@ -76,7 +78,7 @@ app.post("/api/persons", (request, response) => {
   const person = {
     name: body.name,
     number: body.number,
-    id: gereratedId(),
+    id: gereratedId().toString(), // korjaus, id korjattu stringiksi
   };
 
   if (!body.name && body.number) {
@@ -116,7 +118,8 @@ app.post("/api/persons", (request, response) => {
   response.json(person);
 });
 
-const PORT = 3001;
+//const PORT = 3001;
+const PORT = process.env.PORT || 3001; //PÄIVITETTY 3.9 VARTEN
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
