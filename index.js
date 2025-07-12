@@ -4,6 +4,7 @@ const cors = require("cors"); //for 3.9
 
 app.use(cors()); //for 3.9
 app.use(express.json());
+app.use(espress.tatic("dist")); //näyttää staattista sisältöä eli index.html
 
 //Next lines are for 3.8
 const morgan = require("morgan");
