@@ -8,6 +8,7 @@ app.use(express.static("dist")); //näyttää staattista sisältöä eli index.h
 
 //Next lines are for 3.8
 const morgan = require("morgan");
+const { CURSOR_FLAGS } = require("mongodb");
 
 // Custom token to log the request body
 morgan.token("request-body", (req) => {
