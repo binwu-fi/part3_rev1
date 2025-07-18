@@ -1,6 +1,13 @@
+require("dotenv").config(); //for 3.13 vaihe2
+const Person = require("./models/person"); //for 3.13 vaihe2
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 const cors = require("cors"); //for 3.9
+const Person = require("./models/person");
 
 app.use(cors()); //for 3.9
 app.use(express.json());
@@ -33,6 +40,14 @@ mongoose.connect(url);
 const personSchema = new mongoose.Schema({
   name: String,
   number: String,
+});
+
+personSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
 });
 
 const Person = mongoose.model("Person", personSchema);
@@ -155,7 +170,9 @@ app.post("/api/persons", (request, response) => {
 });
 
 //const PORT = 3001;
+/*POISTETAAN alla oleva koodi 3.13 varten
 const PORT = process.env.PORT || 3001; //PÄIVITETTY 3.9 VARTEN
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+*/
