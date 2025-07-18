@@ -22,6 +22,21 @@ const customFormat =
 app.use(morgan(customFormat));
 // 3.8 ends
 
+// below code for 3.13 copied from mongo.js
+const mongoose = require("mongoose");
+const password = process.argv[2];
+const url = `mongodb+srv://binwufi:${password}@cluster0.hwvcrac.mongodb.net/personApp?retryWrites=true&w=majority`;
+
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
+
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+});
+
+const Person = mongoose.model("Person", personSchema);
+
 let persons = [
   {
     id: "1",
@@ -40,9 +55,28 @@ let persons = [
   },
 ];
 
+/*
 app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
+*/
+
+//above code modified for 3.13
+app.get("/api/persons", (request, response) => {
+  Person.find({}).then((persons) => {
+    response.json(persons);
+  });
+});
+
+/*
+Person.find({}).then((result) => {
+    console.log("phonebook:");
+    result.forEach((person) => {
+      console.log(person.name, person.number);
+    });
+    mongoose.connection.close();
+  });
+*/
 
 app.get("/api/info", (request, response) => {
   response.send(
