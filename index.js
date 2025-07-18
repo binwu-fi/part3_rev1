@@ -1,13 +1,9 @@
 require("dotenv").config(); //for 3.13 vaihe2
-const Person = require("./models/person"); //for 3.13 vaihe2
 const express = require("express");
+const Person = require("./models/person"); //for 3.13 vaihe2
 const app = express();
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
 const cors = require("cors"); //for 3.9
-const Person = require("./models/person");
 
 app.use(cors()); //for 3.9
 app.use(express.json());
@@ -50,8 +46,10 @@ personSchema.set("toJSON", {
   },
 });
 
+/*
 const Person = mongoose.model("Person", personSchema);
-
+//replaced inthe beginning at 3.13
+*/
 let persons = [
   {
     id: "1",
@@ -176,3 +174,8 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 */
+//above part changed for 3.13
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

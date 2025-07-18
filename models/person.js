@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 mongoose.set("strictQuery", false);
 
-const url = `mongodb+srv://binwufi:${password}@cluster0.hwvcrac.mongodb.net/personApp?retryWrites=true&w=majority`;
+const url = process.env.MONGODB_URI;
 
 console.log("connecting to", url);
+
 mongoose
   .connect(url)
   .then((result) => {
@@ -27,4 +28,4 @@ personSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Person", PersonSchema);
+module.exports = mongoose.model("Person", personSchema);
