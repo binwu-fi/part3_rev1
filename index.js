@@ -50,6 +50,9 @@ personSchema.set("toJSON", {
 const Person = mongoose.model("Person", personSchema);
 //replaced inthe beginning at 3.13
 */
+
+// kova koodattu persons poistettu 3.13
+/*
 let persons = [
   {
     id: "1",
@@ -67,6 +70,7 @@ let persons = [
     number: "12-43-658256",
   },
 ];
+*/
 
 /*
 app.get("/api/persons", (request, response) => {
