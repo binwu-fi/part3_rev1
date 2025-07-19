@@ -11,7 +11,6 @@ app.use(express.static("dist")); //näyttää staattista sisältöä eli index.h
 
 //Next lines are for 3.8
 const morgan = require("morgan");
-const { CURSOR_FLAGS } = require("mongodb");
 
 // Custom token to log the request body
 morgan.token("request-body", (req) => {
@@ -46,54 +45,11 @@ personSchema.set("toJSON", {
   },
 });
 
-/*
-const Person = mongoose.model("Person", personSchema);
-//replaced inthe beginning at 3.13
-*/
-
-// kova koodattu persons poistettu 3.13
-/*
-let persons = [
-  {
-    id: "1",
-    name: "Arto Hellas",
-    number: "040-123456",
-  },
-  {
-    id: "2",
-    name: "Ada Lovelace",
-    number: "36-987654321",
-  },
-  {
-    id: "3",
-    name: "Dan Abramov",
-    number: "12-43-658256",
-  },
-];
-*/
-
-/*
-app.get("/api/persons", (request, response) => {
-  response.json(persons);
-});
-*/
-
-//above code modified for 3.13
 app.get("/api/persons", (request, response) => {
   Person.find({}).then((persons) => {
     response.json(persons);
   });
 });
-
-/*
-Person.find({}).then((result) => {
-    console.log("phonebook:");
-    result.forEach((person) => {
-      console.log(person.name, person.number);
-    });
-    mongoose.connection.close();
-  });
-*/
 
 app.get("/api/info", (request, response) => {
   response.send(
@@ -171,15 +127,7 @@ app.post("/api/persons", (request, response) => {
   response.json(person);
 });
 
-//const PORT = 3001;
-/*POISTETAAN alla oleva koodi 3.13 varten
-const PORT = process.env.PORT || 3001; //PÄIVITETTY 3.9 VARTEN
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-*/
-//above part changed for 3.13
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

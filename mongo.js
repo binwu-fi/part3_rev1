@@ -22,14 +22,6 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model("Person", personSchema);
 
-// following part are for 3.12 testing
-/*
-const person = new Person({
-  name: "Marju Kalju",
-  number: "09-111111",
-});
-*/
-
 const person = new Person({
   name: nameToAdd,
   number: numberToAdd,
@@ -51,11 +43,3 @@ if (nameToAdd !== undefined && numberToAdd !== undefined) {
 } else if (numberToAdd === undefined) {
   mongoose.connection.close();
 }
-
-// following part are for 3.12 testing
-/*
-person.save().then((result) => {
-  console.log("person saved");
-  mongoose.connection.close();
-});
-*/
