@@ -1,5 +1,5 @@
 //for 3.12
-// eriytetty person.js //const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 if (process.argv.length < 3) {
   console.log("give password as argument");
@@ -10,17 +10,17 @@ const password = process.argv[2];
 const nameToAdd = process.argv[3];
 const numberToAdd = process.argv[4];
 
-// eriytetty person.js //const url = `mongodb+srv://binwufi:${password}@cluster0.hwvcrac.mongodb.net/personApp?retryWrites=true&w=majority`;
+const url = `mongodb+srv://binwufi:${password}@cluster0.hwvcrac.mongodb.net/personApp?retryWrites=true&w=majority`;
 
-// eriytetty person.js //mongoose.set("strictQuery", false);
-// eriytetty person.js //mongoose.connect(url);
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
 
-// eriytetty person.js //const personSchema = new mongoose.Schema({
-// eriytetty person.js //  name: String,
-// eriytetty person.js //  number: String,
-// eriytetty person.js //});
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+});
 
-// eriytetty person.js //const Person = mongoose.model("Person", personSchema);
+const Person = mongoose.model("Person", personSchema);
 
 // following part are for 3.12 testing
 /*
@@ -30,10 +30,10 @@ const person = new Person({
 });
 */
 
-// eriytetty person.js //const person = new Person({
-// eriytetty person.js //  name: nameToAdd,
-// eriytetty person.js //  number: numberToAdd,
-// eriytetty person.js //});
+const person = new Person({
+  name: nameToAdd,
+  number: numberToAdd,
+});
 
 if (nameToAdd !== undefined && numberToAdd !== undefined) {
   person.save().then((result) => {
